@@ -1,14 +1,118 @@
 // instulations
 https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html
+
 // conmands
 sudo systemctl start elasticsearch
+
 curl 'localhost:9200/?pretty'
+
 sudo systemctl stop elasticsearch
+
 sudo systemctl start elasticsearch
+
 https://github.com/StephaneBour/sense-chrome
+
 composer create-project --prefer-dist laravel/laravel Elasticsearch-Course "5.5.*"
+
 composer require elasticsearch/elasticsearch
+
 composer require ruflin/Elastica
+
 composer require laravel/scout
+
 php artisan vendor:publish
+
 http://elasticsearch.local
+
+curl http://elasticsearch.local:9200/?pretty
+
+curl http://elasticsearch.local:9200/_cat/indices?v
+
+curl -XPUT http://elasticsearch.local:9200/pets/dog/1/?pretty -d '{"name": "Susana","age":2,"gender":"female","color":"brown","goodDog":true,"home town":"Nogal, Massachusetts","about":"Ad laboris occaecat ut elit. Sit consequant velit sit est reprehenderit aliquip magna amet dolore incididunt ad. Mollit eiusmod ex consequat cillum anim exercitation fugiat ipsum consectetur ut dolor. Exercitation minim tempor cillum commodo ad amet ea. Nostrud irure occaecat exercitation ut nisi excepteur.\r\n","registered":"2013-06-11"}'
+
+https://discuss.elastic.co/t/x-www-urlencoded-not-supported/108128
+
+https://www.elastic.co/blog/strict-content-type-checking-for-elasticsearch-rest-requests
+
+curl -H'Content-Type: application/json' -XPUT http://elasticsearch.local:9200/pets/dog/1/?pretty -d '{"name": "Susana","age":2,"gender":"female","color":"brown","goodDog":true,"home town":"Nogal, Massachusetts","about":"Ad laboris occaecat ut elit. Sit consequant velit sit est reprehenderit aliquip magna amet dolore incididunt ad. Mollit eiusmod ex consequat cillum anim exercitation fugiat ipsum consectetur ut dolor. Exercitation minim tempor cillum commodo ad amet ea. Nostrud irure occaecat exercitation ut nisi excepteur.\r\n","registered":"2013-06-11"}'
+
+curl http://elasticsearch.local:9200/pets/_mapping/dog/?pretty | less
+
+curl 'http://elasticsearch.local:9200/pets/dog/_search?q=name:susana&pretty'
+
+curl -s -XPOST  -H "Content-Type: application/x-ndjson" http://elasticsearch.local:9200/_bulk?pretty -d '
+{ "index": {"_index":"pets","_type":"dog","_id":"10"}}\
+{"name":"Jackson","age":"11","gender":"male","color":"black","goodDog":true,"hometown":"Lydia, Maine", "about":"Ea cupidatat magna ea nostrud nostrud sunt incididunt eu excepteucurl -s -XPOST  -H "Content-Type: application/x-ndjson" http://elasticsearch.local:9200/_bulk?pretty -d '
+{
+  "index" :
+  {
+    "_index":"pets",
+    "_type":"dog",
+    "_id":"10"
+  }
+}
+\
+{
+ "name" : "Jackson",
+  "age" : "11",
+  "gender" : "male",
+  "color" : "black",
+  "goodDog" : true,
+  "hometown" : "Lydia,Maine",
+  "about" : "Ea cupidatat magna ea nostrud nostrud sunt incididunt eu excepteur ex. Est Lorem dolore partiatur mollit nulla. Magna elit consequant culpa ex velit et fugiat proident ea ipsum ut laborum cillum. Anim ipsum excepteur incididuntamet commodo magna magna voluptate Lorem. Qui proident duis occaecat ad consequat officia cillum est aliquip consequat ex. Ullamco qui dolor do do ex.\r\n",
+  "registered" : "2010-04-26"
+}
+\
+{
+ "index":
+  {
+  "_index":"pets",
+   "_type":"dog",
+   "_id":"11"
+  }
+ }
+ \
+{
+ "name":"Benjamin",
+ "age":"1",
+ "gender":"male",
+ "color":"black",
+ "goodDog":true,
+ "hometown":"Naomi,
+ America Samoa",
+ "about":"Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered":"2014-11-18"
+ }
+ 'r ex. Est Lorem dolore partiatur mollit nulla. Magna elit consequant culpa ex velit et fugiat proident ea ipsum ut laborum cillum. Anim ipsum excepteur incididuntamet commodo magna magna voluptate Lorem. Qui proident duis occaecat ad consequat officia cillum est aliquip consequat ex. Ullamco qui dolor do do ex.\r\n","registered":"2010-04-26"}\
+{ "index":{"_index":"pets", "_type":"dog","_id":"11"}}\
+{"name":"Benjamin","age":"1","gender":"male","color":"black","goodDog":true,"hometown":"Naomi, America Samoa", "about":"Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered":"2014-11-18"}'
+
+curl -s -XPOST  -H "Content-Type: application/json"  http://elasticsearch.local:9200/_bulk  --data-binary "@data"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
