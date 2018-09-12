@@ -1,0 +1,14 @@
+// instulations
+https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html
+// conmands
+sudo systemctl start elasticsearch
+curl 'localhost:9200/?pretty'
+sudo systemctl stop elasticsearch
+sudo systemctl start elasticsearch
+https://github.com/StephaneBour/sense-chrome
+composer create-project --prefer-dist laravel/laravel Elasticsearch-Course "5.5.*"
+composer require elasticsearch/elasticsearch
+composer require ruflin/Elastica
+composer require laravel/scout
+php artisan vendor:publish
+http://elasticsearch.local
