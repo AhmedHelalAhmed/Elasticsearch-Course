@@ -73,6 +73,34 @@ curl -s -XPOST  -H "Content-Type: application/x-ndjson" http://elasticsearch.loc
 ' | less
 // Important : insert data object must be in one line no spaces allowed
 
+curl -s 'http://elasticsearch.local:9200/pets/dog/_search?q=about:Nostrud&pretty' | less
+
+curl -s 'http://elasticsearch.local:9200/pets/dog/_count?q=about:Nostrud&pretty'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
