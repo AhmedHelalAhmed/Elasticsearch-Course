@@ -46,6 +46,7 @@ curl -s -XPOST  -H "Content-Type: application/x-ndjson" http://elasticsearch.loc
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "12" } }
 { "name" : "Benjamin", "age" : "1","gender" : "male","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18"}
 '
+// Important : insert data object must bt in one line no spaces allowed
 
 
 
