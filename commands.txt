@@ -212,6 +212,133 @@ PUT pets
 http://elasticsearch.local/elasticsearch/data
 
 
+GET _search
+{
+   "query":
+   {
+      "match_all": {}
+   }
+}
+
+
+Get /
+
+POST /pets/dog/_search
+
+POST /pets/dog/_search
+{
+    "query":
+    {
+        "match":
+        {
+           "about": "ipsum"
+        }
+    }
+}
+
+POST /pets/dog/_search
+{
+    "query":
+    {
+        "bool":
+        {
+            "must":
+            [
+                   {
+                     "match": { "about": "ipsum" }
+                   }
+            ]
+        }
+    }
+}
+
+
+POST /pets/dog/_search
+{
+    "query":
+    {
+        "bool":
+        {
+            "must":
+            [
+                   {
+                     "match": { "about": "ipsum" }
+                   }
+            ],
+            "should":
+            [
+                   {
+                       "term": {"goodDog": true}
+                   },
+                   {
+                       "term": {"gender": "male"}
+                   }
+            ]
+        }
+    }
+}
+
+POST /pets/dog/_search?explain
+{
+    "query":
+    {
+        "bool":
+        {
+            "must":
+            [
+                   {
+                     "match": { "about": "ipsum" }
+                   }
+            ],
+            "should":
+            [
+                   {
+                       "term": {"goodDog": true}
+                   },
+                   {
+                       "term": {"gender": "male"}
+                   }
+            ]
+        }
+    }
+}
+
+POST /pets/dog/_search
+{
+    "query":
+    {
+        "bool":
+        {
+            "must":
+            [
+                   {
+                     "match": { "about": "ipsum" }
+                   }
+            ],
+            "filter":
+            [
+                {
+                     "range":
+                     {
+                        "registered":
+                        {
+                            "gte": "2015-01-01"
+                        }
+
+                     }
+                }
+            ]
+        }
+    }
+}
+
+GET /pets/bird/_search
+{
+   "query":
+   {
+      "match_all": {}
+   }
+}
 
 
 

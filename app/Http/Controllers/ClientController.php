@@ -110,10 +110,10 @@ class ClientController extends Controller
                                 'properties' =>
                                     [
                                         "name"       => array("type" => "text"),
-                                        "age"       => array("type" => "long"),
+                                        "age"        => array("type" => "long"),
                                         "gender"     => array("type" => "text"),
-                                        "color"      => array("type"=> "text"),
-                                        "braveBird"  => array("type"=> "boolean"),
+                                        "color"      => array("type" => "text"),
+                                        "braveBird"  => array("type" => "boolean"),
                                         "home town"  => array("type" => "text"),
                                         "about"      => array("type" => "text"),
                                         "registered" => array("type" => "date"),
@@ -123,9 +123,10 @@ class ClientController extends Controller
                     ],
             ];
 
+// this to create thew type
+//        $response = $this -> elasticsearch -> indices() -> putMapping($params);
+//        dump($response);
 
-        $response = $this -> elasticsearch -> indices() -> putMapping($params);
-        dump($response);
 
         // Get A mapping
         $params =
@@ -144,6 +145,62 @@ class ClientController extends Controller
         // then create new index with :
         // in browser in extension
         // PUT pets
+
+
+        // Index a document
+        $params = [
+            'index' => 'pets',
+            'type'  => 'bird',
+            'id'    => '1',
+            'body'  => [
+                'name'       => 'Charlie Shittles',
+                'age'        => '13',
+                'gender'     => 'male',
+                'color'      => 'brown',
+                'braveBird'  => true,
+                'home town'  => 'Phoenix, Arizona',
+                'about'      => 'Lore ipsum dolor sit amet, consectetur
+              adipiscing elit. Maecenas pharetra lobortis tristique. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmo/pets/dog/1/d et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt.',
+                'registered' => date('Y-m-d'),
+            ],
+        ];
+        $response = $this -> elasticsearch -> index($params);
+        dump($response);
+
+        // Bulk index documents
+        $faker = Faker ::create();
+
+        $params = [];
+
+        for ($i = 0 ; $i < 100 ; $i ++) {
+            $params[ 'body' ][] = [
+                'index' => [
+                    '_index' => 'pets',
+                    '_type'  => 'bird',
+
+                ],
+            ];
+            $gender = $faker -> randomElement(['male', 'female']);
+            $age = $faker -> numberBetween(1, 15);
+            $params[ 'body' ][] =
+                [
+                    'name'       => $faker -> name($gender),
+                    'age'        => $age,
+                    'gender'     => $gender,
+                    'color'      => $faker -> safeColorName,
+                    'braveBird'  => $faker -> boolean,
+                    'home town'  => "{$faker->city}, {$faker->state}",
+                    'about'      => $faker -> realText(),
+                    'registered' => $faker -> dateTimeBetween("-{$age} years", 'now') -> format('Y-m-d'),
+
+                ];
+
+
+        }
+
+        $response = $this -> elasticsearch -> bulk($params);
+        dump($response);
+
 
     }
 }
