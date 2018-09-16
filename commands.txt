@@ -43,7 +43,6 @@ curl 'http://elasticsearch.local:9200/pets/dog/_search?q=name:susana&pretty'
 curl -s -XPOST  -H "Content-Type: application/x-ndjson" http://elasticsearch.local:9200/_bulk?pretty -d'
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "10" } }
 { "name" : "Benjamin", "age" : "10","gender" : "female","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18" }
-
 { "index" : { "_index" : "pets","_type" : "dog","_id" : "11" } }
 { "name" : "Jackson", "age" : "11","gender" : "male","color" : "black","goodDog" : true,"home town" : "Lydia,Maine","about" : "Ea cupidatat magna ea nostrud nostrud sunt incididunt eu excepteur ex. Est Lorem dolore partiatur mollit nulla. Magna elit consequant culpa ex velit et fugiat proident ea ipsum ut laborum cillum. Anim ipsum excepteur incididuntamet commodo magna magna voluptate Lorem. Qui proident duis occaecat ad consequat officia cillum est aliquip consequat ex. Ullamco qui dolor do do ex.\r\n","registered" : "2010-04-26" }
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "12" } }
@@ -61,21 +60,143 @@ curl -s -XPOST  -H "Content-Type: application/x-ndjson" http://elasticsearch.loc
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "18" } }
 { "name" : "Benjamin", "age" : "88","gender" : "female","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18" }
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "19" } }
-{ "name" : "Benjamin", "age" : "19","gender" : "male","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18" }
+{ "name" : "Benjamin", "age" : "19","gender" : "male","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmo/pets/dog/1/d et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18" }
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "20" } }
 { "name" : "Benjamin", "age" : "25","gender" : "female","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18" }
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "21" } }
-{ "name" : "Benjamin", "age" : "88","gender" : "female","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18" }
+{ "name" : "test2", "age" : "88","gender" : "female","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2018-11-18" }
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "22" } }
 { "name" : "Benjamin", "age" : "88","gender" : "female","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18" }
 { "index" : { "_index" : "pets", "_type" : "dog","_id" : "23" } }
-{ "name" : "Benjamin", "age" : "88","gender" : "female","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2014-11-18" }
+{ "name" : "test1", "age" : "88","gender" : "female","color" : "black","goodDog" : true,"home town" : "Naomi,America Samoa","about" : "Nostrud eu mollit veniam est nulla ullamco. Magna aute enim officia quis ad in duis ad in duis partiatur. Inproident  eiusmod et excepteur quis in voluptate qui culpa sint dolore. Ad eu sint fugiat deserunt proident minim. Deserunt ea commodo dolor anim sunt deserunt. \r\n","registered" : "2016-11-18" }
 ' | less
 // Important : insert data object must be in one line no spaces allowed
 
 curl -s 'http://elasticsearch.local:9200/pets/dog/_search?q=about:Nostrud&pretty' | less
 
 curl -s 'http://elasticsearch.local:9200/pets/dog/_count?q=about:Nostrud&pretty'
+
+query DSL from browser
+
+GET _search
+{
+   "query":
+   {
+      "match_all": {}
+   }
+}
+
+Get /
+
+POST /pets/dog/_search
+
+POST /pets/dog/_search
+{
+    "query":
+    {
+        "match":
+        {
+           "about": "ipsum"
+        }
+    }
+}
+
+POST /pets/dog/_search
+{
+    "query":
+    {
+        "bool":
+        {
+            "must":
+            [
+                   {
+                     "match": { "about": "ipsum" }
+                   }
+            ]
+        }
+    }
+}
+
+POST /pets/dog/_search
+{
+    "query":
+    {
+        "bool":
+        {
+            "must":
+            [
+                   {
+                     "match": { "about": "ipsum" }
+                   }
+            ],
+            "should":
+            [
+                   {
+                       "term": {"goodDog": true}
+                   },
+                   {
+                       "term": {"gender": "male"}
+                   }
+            ]
+        }
+    }
+}
+
+POST /pets/dog/_search?explain
+{
+    "query":
+    {
+        "bool":
+        {
+            "must":
+            [
+                   {
+                     "match": { "about": "ipsum" }
+                   }
+            ],
+            "should":
+            [
+                   {
+                       "term": {"goodDog": true}
+                   },
+                   {
+                       "term": {"gender": "male"}
+                   }
+            ]
+        }
+    }
+}
+
+POST /pets/dog/_search
+{
+    "query":
+    {
+        "bool":
+        {
+            "must":
+            [
+                   {
+                     "match": { "about": "ipsum" }
+                   }
+            ],
+            "filter":
+            [
+                {
+                     "range":
+                     {
+                        "registered":
+                        {
+                            "gte": "2015-01-01"
+                        }
+
+                     }
+                }
+            ]
+        }
+    }
+}
+
+
 
 
 
