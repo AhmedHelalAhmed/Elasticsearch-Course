@@ -200,6 +200,28 @@ http://elasticsearch.local/elasticsearch/test
 
 http://elasticsearch.local/elastica/test
 
+http://elasticsearch.local/elasticsearch/data
+
+// delete index
+curl -XDELETE http://elasticsearch.local:9200/pets
+
+// create index
+in browser in extension
+PUT pets
+
+http://elasticsearch.local/elasticsearch/data
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
