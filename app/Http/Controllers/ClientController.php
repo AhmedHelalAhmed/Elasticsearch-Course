@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 use Elasticsearch\ClientBuilder;
 use Elastica\Client as ElasticaClient;
-
+use Elastica;
 /*   for elastic search   */
 
 use Faker\Factory as Faker;
@@ -202,5 +202,65 @@ class ClientController extends Controller
         dump($response);
 
 
+    }
+
+//  http://elasticsearch.local/elastica/data
+    public function elasticaData()
+    {
+        $catType = $this -> elasticaIndex -> getType('cat');
+
+        $mapping = new Elastica\Type\Mapping($catType, [
+            'name'       => array('type' => 'text'),
+            "age"        => array("type" => "long"),
+            "gender"     => array("type" => "text"),
+            "color"      => array("type" => "text"),
+            "braveBird"  => array("type" => "boolean"),
+            "home town"  => array("type" => "text"),
+            "about"      => array("type" => "text"),
+            "registered" => array("type" => "date"),
+        ]);
+
+//        $response = $mapping->send();
+//        dump($response);
+
+        // Index a document
+        $catDocument = new Elastica\Document();
+        $catDocument -> setData([
+            'name'       => 'Meowlixander Hamilton',
+            'age'        => '4',
+            'gender'     => 'male',
+            'color'      => 'orange',
+            'braveBird'  => true,
+            'home town'  => 'Portland, Oregon',
+            'about'      => 'Lore ipsum dolor sit amet, consectetur
+              adipiscing elit. Maecenas pharetra lobortis tristique. Magna aute enim officia quis ad in duis ad in duis partiatur.',
+            'registered' => date('Y-m-d'),
+        ]);
+
+        $response = $catType -> addDocument($catDocument);
+        dump($response);
+
+        // Bulk index documents
+        $faker = Faker ::create();
+
+        $documents = [];
+        for ($i = 0 ; $i < 100 ; $i ++)
+        {
+            $gender = $faker -> randomElement(['male', 'female']);
+            $age = $faker -> numberBetween(1, 15);
+            $documents[] = (new Elastica\Document()) -> setData([
+                'name'       => $faker -> name($gender),
+                'age'        => $age,
+                'gender'     => $gender,
+                'color'      => $faker -> safeColorName,
+                'braveBird'  => $faker -> boolean,
+                'home town'  => "{$faker->city}, {$faker->state}",
+                'about'      => $faker -> realText(),
+                'registered' => $faker -> dateTimeBetween("-{$age} years", 'now') -> format('Y-m-d'),
+            ]);
+        }
+
+        $response = $catType->addDocuments($documents);
+        dump($response);
     }
 }

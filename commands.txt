@@ -208,6 +208,9 @@ curl -XDELETE http://elasticsearch.local:9200/pets
 // create index
 in browser in extension
 PUT pets
+or in terminal
+curl -X PUT "localhost:9200/pets"
+
 
 http://elasticsearch.local/elasticsearch/data
 
@@ -340,7 +343,15 @@ GET /pets/bird/_search
    }
 }
 
+// in browser in extension
 
+GET /pets/cat/_search
+{
+   "query":
+   {
+      "match_all": {}
+   }
+}
 
 
 
