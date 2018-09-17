@@ -353,6 +353,10 @@ GET /pets/cat/_search
    }
 }
 
+// so we have two clients :
+1- elasticsearch php client.
+2- elastica client.
+
 
 
 
