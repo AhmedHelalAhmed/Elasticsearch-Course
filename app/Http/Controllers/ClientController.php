@@ -329,6 +329,7 @@ class ClientController extends Controller
 
     }
 
+// http://elasticsearch.local/elastica/queries
     public function elasticaQueries()
     {
         // GET the cat type
@@ -372,5 +373,73 @@ class ClientController extends Controller
 
         $response = $catType->search($query);
         dump($response);
+    }
+// http://elasticsearch.local/elasticsearch/advanced
+    public function elasticsearchAdvanced()
+    {
+        // Aggregations, how many pets are each age
+        $params = [
+          'index'=>'pets',
+          'type'=>'bird',
+          'size'=>0,
+          'body'=>[
+              'aggs'=>[
+                  'BirdAges'=>[
+                      'terms'=>[
+                          'field'=>'age'
+                      ]
+                  ]
+              ]
+          ]
+        ];
+
+        $response = $this->elasticsearch->search($params);
+        dump($response);
+
+        // Aggregations, with a query
+        $params = [
+          'index'=>'pets',
+          'type' =>'bird',
+          'size'=>0,
+          'body'=>[
+              'query'=>[
+                  'bool'=>[
+                      'must'=>[
+                          'match'=>['about' => 'Alice']
+                      ],
+                      'filter'=>[
+                          'range'=>[
+                              'registered'=>[
+                                  'gte'=>'2015-01-01'
+                              ]
+                          ]
+                      ]
+                  ]
+              ],
+              'aggs' =>[
+                  'BirdRegisterations' =>[
+                      'data histogram' =>[
+                          'field'=>'registered',
+                          'interval'=>'year'
+                      ]
+                  ]
+              ]
+          ]
+        ];
+
+        $response = $this->elasticsearch->search($params);
+        dump($response);
+        // Programatically build a query with a few different search types
+        $shoulds=[
+            ['field'=>'about','value'=>'alice'],
+            ['field'=>'about','value'=>'Queen'],
+            ['field'=>'braveBird','value'=>true]
+        ];
+        $musts=[
+          ['field'=>'gender','value'=>'female'],
+          ['field'=>'color','value'=>'olive']
+        ];
+
+
     }
 }
