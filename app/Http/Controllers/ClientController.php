@@ -244,8 +244,7 @@ class ClientController extends Controller
         $faker = Faker ::create();
 
         $documents = [];
-        for ($i = 0 ; $i < 100 ; $i ++)
-        {
+        for ($i = 0 ; $i < 100 ; $i ++) {
             $gender = $faker -> randomElement(['male', 'female']);
             $age = $faker -> numberBetween(1, 15);
             $documents[] = (new Elastica\Document()) -> setData([
@@ -260,7 +259,73 @@ class ClientController extends Controller
             ]);
         }
 
-        $response = $catType->addDocuments($documents);
+        $response = $catType -> addDocuments($documents);
         dump($response);
+    }
+
+// http://elasticsearch.local/elasticsearch/queries
+    public function elasticsearchQueries()
+    {
+        // Run  our query on the name field
+        $params = [
+            'index' => 'pets',
+            'type'  => 'cat',
+            'body'  => [
+                'query' => [
+                    'match' => [
+                        'name' => 'MD',
+                    ],
+                ],
+            ],
+        ];
+        $response = $this -> elasticsearch -> search($params);
+        dump($response);
+        $params = [
+            'index' => 'pets',
+            'type'  => 'cat',
+            'size'  => 15,
+            'body'  => [
+                'query' => [
+                    'match' => [
+                        'about' => 'Alice',
+                    ],
+                ],
+            ],
+        ];
+
+        $response = $this -> elasticsearch -> search($params);
+        dump($response);
+
+        // Run a boolean query
+        $params = [
+            'index' => 'pets',
+            'type'  => 'cat',
+            'body'  => [
+                'query' => [
+                    'bool' => [
+                        'must'   => [
+                            'match' => ['about' => 'Alice'],
+                        ],
+                        'should' => [
+                            'term' => ['braveBird' => true],
+                            'term' => ['gender' => 'male'],
+                        ],
+                        'filter' => [
+                            'range' => [
+                                'registered' => [
+                                    'gte' => '2015-01-01',
+                                ],
+                            ],
+                        ],
+
+                    ],
+                ],
+            ],
+        ];
+
+        $response = $this->elasticsearch->search($params);
+        dump($response);
+
+
     }
 }
