@@ -323,7 +323,7 @@ class ClientController extends Controller
             ],
         ];
 
-        $response = $this->elasticsearch->search($params);
+        $response = $this -> elasticsearch -> search($params);
         dump($response);
 
 
@@ -333,113 +333,134 @@ class ClientController extends Controller
     public function elasticaQueries()
     {
         // GET the cat type
-        $catType = $this->elasticaIndex->getType('cat');
+        $catType = $this -> elasticaIndex -> getType('cat');
 
         // Run our query on the same field
         $query = new Elastica\Query;
 
-        $match = new Elastica\Query\Match('name','MD');
-        $query->setQuery($match);
+        $match = new Elastica\Query\Match('name', 'MD');
+        $query -> setQuery($match);
 
-        $response = $catType->search($query);
+        $response = $catType -> search($query);
         dump($response);
 
         // Run our query on the about field
         $query = new Elastica\Query;
 
         $match = new Elastica\Query\Match;
-        $match->setField('about','Alice');
-        $query->setQuery($match);
-        $query->setSize(15);
+        $match -> setField('about', 'Alice');
+        $query -> setQuery($match);
+        $query -> setSize(15);
 
-        $response = $catType->search($query);
+        $response = $catType -> search($query);
         dump($response);
 
         // Run a boolean query
         $query = new Elastica\Query;
 
         $bool = new Elastica\Query\BoolQuery;
-        $mustMatch = new Elastica\Query\Match('about','Alice');
-        $shouldOne = new Elastica\Query\Term(['braveBird'=>true]);
-        $shouldTwo = new Elastica\Query\Term(['gender'=>'female']);
-        $filterRange = new Elastica\Query\Range('registered',['gte'=>'2015-01-01']);
+        $mustMatch = new Elastica\Query\Match('about', 'Alice');
+        $shouldOne = new Elastica\Query\Term(['braveBird' => true]);
+        $shouldTwo = new Elastica\Query\Term(['gender' => 'female']);
+        $filterRange = new Elastica\Query\Range('registered', ['gte' => '2015-01-01']);
 
-        $bool->addMust($mustMatch);
-        $bool->addShould($shouldOne);
-        $bool->addShould($shouldTwo);
-        $bool->addFilter($filterRange);
+        $bool -> addMust($mustMatch);
+        $bool -> addShould($shouldOne);
+        $bool -> addShould($shouldTwo);
+        $bool -> addFilter($filterRange);
 
-        $query->setQuery($bool);
+        $query -> setQuery($bool);
 
-        $response = $catType->search($query);
+        $response = $catType -> search($query);
         dump($response);
     }
+
 // http://elasticsearch.local/elasticsearch/advanced
     public function elasticsearchAdvanced()
     {
         // Aggregations, how many pets are each age
         $params = [
-          'index'=>'pets',
-          'type'=>'bird',
-          'size'=>0,
-          'body'=>[
-              'aggs'=>[
-                  'BirdAges'=>[
-                      'terms'=>[
-                          'field'=>'age'
-                      ]
-                  ]
-              ]
-          ]
+            'index' => 'pets',
+            'type'  => 'bird',
+            'size'  => 0,
+            'body'  => [
+                'aggs' => [
+                    'BirdAges' => [
+                        'terms' => [
+                            'field' => 'age',
+                        ],
+                    ],
+                ],
+            ],
         ];
-
-        $response = $this->elasticsearch->search($params);
+        $response = $this -> elasticsearch -> search($params);
         dump($response);
-
         // Aggregations, with a query
         $params = [
-          'index'=>'pets',
-          'type' =>'bird',
-          'size'=>0,
-          'body'=>[
-              'query'=>[
-                  'bool'=>[
-                      'must'=>[
-                          'match'=>['about' => 'Alice']
-                      ],
-                      'filter'=>[
-                          'range'=>[
-                              'registered'=>[
-                                  'gte'=>'2015-01-01'
-                              ]
-                          ]
-                      ]
-                  ]
-              ],
-              'aggs' =>[
-                  'BirdRegisterations' =>[
-                      'data histogram' =>[
-                          'field'=>'registered',
-                          'interval'=>'year'
-                      ]
-                  ]
-              ]
-          ]
+            'index' => 'pets',
+            'type'  => 'bird',
+            'size'  => 0,
+            'body'  => [
+                'query' => [
+                    'bool' => [
+                        'must'   => [
+                            'match' => ['about' => 'Alice']
+                        ],
+                        'filter' => [
+                            'range' => [
+                                'registered' => [
+                                    'gte' => '2015-01-01'
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'aggs'  => [
+                    'BirdRegistrations' => [
+                        'date_histogram' => [
+                            'field'    => 'registered',
+                            'interval' => 'year',
+                        ],
+                    ],
+                ],
+            ],
         ];
-
-        $response = $this->elasticsearch->search($params);
+        $response = $this -> elasticsearch -> search($params);
         dump($response);
         // Programatically build a query with a few different search types
-        $shoulds=[
-            ['field'=>'about','value'=>'alice'],
-            ['field'=>'about','value'=>'Queen'],
-            ['field'=>'braveBird','value'=>true]
+        $shoulds = [
+            ['field' => 'about', 'value' => 'alice'],
+            ['field' => 'about', 'value' => 'Queen'],
+            ['field' => 'braveBird', 'value' => true],
         ];
-        $musts=[
-          ['field'=>'gender','value'=>'female'],
-          ['field'=>'color','value'=>'olive']
+        $musts = [
+            ['field' => 'gender', 'value' => 'female'],
+            ['field' => 'color', 'value' => 'olive'],
         ];
 
+        $query = [];
+        foreach ($shoulds as $should) {
+            $query[ 'should' ][] = [
+                'match' => [$should[ 'field' ] => $should[ 'value' ]],
+            ];
+        }
+        foreach ($musts as $must) {
+            $query[ 'must' ][] = [
+                'term' => [$must[ 'field' ] => $must[ 'value' ]],
+            ];
+        }
 
+        $params = [
+            'index' => 'pets',
+            'type'  => 'bird',
+            'body'  => [
+                'query' => [
+                    'bool' => $query,
+                ],
+            ],
+
+        ];
+        $response = $this -> elasticsearch -> search($params);
+        dump($response);
     }
 }
