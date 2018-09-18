@@ -24,3 +24,9 @@ Route::prefix('elastica')->group(function(){
     Route::get('queries',['uses'=>'ClientController@elasticaQueries']);
     Route::get('advanced',['uses'=>'ClientController@elasicaAdvanced']);
 });
+
+
+Route::prefix('duck')->group(function(){
+    Route::get('search',['uses'=>'DuckController@search','as'=>'duck_search']);
+
+});

@@ -365,7 +365,7 @@ GET /pets/ducks/_mapping
 
 GET /pets/ducks/_search
 
-
+composer require "laravelcollective/html":"^5.4.0"
 
 
 
