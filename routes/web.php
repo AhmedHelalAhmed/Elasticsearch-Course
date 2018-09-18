@@ -22,4 +22,5 @@ Route::prefix('elastica')->group(function(){
     Route::get('test',['uses'=>'ClientController@elasticaTest']);
     Route::get('data',['uses'=>'ClientController@elasticaData']);
     Route::get('queries',['uses'=>'ClientController@elasticaQueries']);
+    Route::get('advanced',['uses'=>'ClientController@elasicaAdvanced']);
 });
