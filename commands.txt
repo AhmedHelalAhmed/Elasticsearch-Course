@@ -361,8 +361,9 @@ downgrade elastic search to 5.6
 downgrade laravel/scout to ^3.0
 composer require tamayo/laravel-scout-elastic
 
+GET /pets/ducks/_mapping
 
-
+GET /pets/ducks/_search
 
 
 
