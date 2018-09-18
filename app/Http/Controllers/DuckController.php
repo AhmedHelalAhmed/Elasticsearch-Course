@@ -9,6 +9,16 @@ class DuckController extends Controller
 {
     public function search()
     {
-        return view('duck_search');
+        if($query = \Request::get('query'))
+        {
+            $results=Duck::search('query')->get();
+
+            return view('duck_search',['query'=>$query,'results'=>$results]);
+        }
+        else
+        {
+            return view('duck_search',['query'=>null]);
+
+        }
     }
 }
