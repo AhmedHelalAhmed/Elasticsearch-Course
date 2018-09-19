@@ -366,7 +366,10 @@ GET /pets/ducks/_mapping
 GET /pets/ducks/_search
 
 composer require "laravelcollective/html":"^5.4.0"
-
+php artisan make:model Duck --migration
+php artisan make:seeder DucksTableSeeder
+php artisan migrate --seed
+php artisan make:controller DuckController
 
 
 

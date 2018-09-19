@@ -7,7 +7,7 @@
 <body>
 <h1>Dan's disco Duck Page</h1>
 <h2>Feel free to search for your favorite duck!</h2>
-{{ Form::open(['method'=>'get','route'=>'duck_search']) }}
+{{ Form::open(['method'=>'get','route'=>'duck_advanced_search']) }}
 Duck Query: {{ Form::text('query',$query) }} <br />
 Duck Age: {{ Form::text('duck_age', $age?? '') }} <br />
 Duck Color: {{ Form::text('duck_color', $color ?? '') }} <br />
@@ -15,8 +15,8 @@ Duck Name: {{ Form::text('duck_name', $name ?? '') }} <br />
 {{ Form::submit('Search All Ducks') }}
 {{ Form::close() }}
 @if(isset($results))
-    <h2>Results ({{ 1+ (3 * ($page -1)) }} - {{ (3*$page) > $results->total() ? $results->total() : (15 * $page) }})</h2>
-    <table>
+    <h2>Results ({{ 1+ (15 * ($page -1)) }} - {{ (15 * $page) > $results->total() ? $results->total() : (15 * $page) }}) of {{ $results->total() }}</h2>
+    <table border="1">
         <thead>
         <tr>
             <th>Name</th>

@@ -11,8 +11,9 @@
 {{ Form::text('query',$query) }}
 {{ Form::submit('Search All Ducks') }}
 {{ Form::close() }}
+<br /><br /><br />
 @if(isset($results))
-    <table>
+    <table border="1">
         <thead>
         <tr>
             <th>Name</th>
@@ -27,12 +28,13 @@
         </thead>
         <tbody>
         @foreach($results as $result)
+
             <tr>
                 <td>{{ $result->name }}</td>
                 <td>{{ $result->age }}</td>
                 <td>{{ $result->color }}</td>
                 <td>{{ $result->gender }}</td>
-                <td>{{ $result->hometown }}</td>
+                <td>{{ $result['home town'] }}</td>
                 <td>{{ $result->funkyDuck }}</td>
                 <td>{{ $result->about }}</td>
                 <td>{{ $result->registered }}</td>

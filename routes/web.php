@@ -28,5 +28,5 @@ Route::prefix('elastica')->group(function(){
 
 Route::prefix('duck')->group(function(){
     Route::get('search',['uses'=>'DuckController@search','as'=>'duck_search']);
-    Route::get('advanced',['uses'=>'DuckController@advanced','as'=>'duck_search']);
+    Route::get('advanced',['uses'=>'DuckController@advanced','as'=>'duck_advanced_search']);
 });
